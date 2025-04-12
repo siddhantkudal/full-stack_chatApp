@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: UI_dep
+  name: uidep
   labels:
     app: ui
+  namespace: chatbot
 spec:
   replicas: 1
   selector:
@@ -13,10 +14,12 @@ spec:
     metadata:
       labels:
         app: ui
+      namespace: chatbot
     spec:
       containers:
         - name: frontend
-          image: siddhantkudal/chatbot:1
+          image: siddhantkudal/chatbot_frontend:1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:

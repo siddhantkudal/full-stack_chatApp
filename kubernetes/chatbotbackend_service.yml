@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend
+  namespace: chatbot
+spec:
+  selector:
+    app: bk
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+

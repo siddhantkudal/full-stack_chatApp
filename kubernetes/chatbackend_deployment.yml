@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Backend_deployment
+  name: backenddeployment
   namespace: chatbot
   labels:
     app: bk
@@ -12,24 +12,25 @@ spec:
       app: bk
   template:
     metadata:
-    namespace: chatbot
+      namespace: chatbot
       labels:
         app: bk
     spec:
       containers:
         - name: backend
-          image: siddhantkudal/chatbot_backend:1
+          image: siddhantkudal/chatbotbackend:1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
             - name: MONGODB_URI
-              value: mongodb://root:root@mongodb:27017/chatApp?authSource=admin
+              value: "mongodb://root:root@mongodb:27017/chatApp?authSource=admin"
             - name: PORT
-              value: 5001
+              value: "5001"
             - name: NODE_ENV
-              value: production
+              value: "production"
             - name: JWT_SECRET
-              value: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MzI0NjA1NTEsImV4cCI6MTc2Mzk5NjU1MSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.YTeR6zLCKuOPjz5CYfwxW1gXp_wP1gAnN3qSMJIFQFg          
+              value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MzI0NjA1NTEsImV4cCI6MTc2Mzk5NjU1MSwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.YTeR6zLCKuOPjz5CYfwxW1gXp_wP1gAnN3qSMJIFQFg"
           resources:
             requests:
               memory: "128Mi"
