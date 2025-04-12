@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: UI_dep
+  labels:
+    app: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+        - name: frontend
+          image: siddhantkudal/chatbot:1
+          ports:
+            - containerPort: 80
+          env:
+            - name: BACKEND_URL
+              value: http://backend:5001
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80        # Replace with your app's internal port
+            initialDelaySeconds: 10  # Wait time before starting checks
+            periodSeconds: 10        # Frequency of checks
+            timeoutSeconds: 2        # Time to wait for a response
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80         # Replace with your app's internal port
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+
+    
+        
+        
+
+           
+  
